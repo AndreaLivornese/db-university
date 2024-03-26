@@ -56,3 +56,21 @@ ON courses.id = course_teacher.course_id
 INNER JOIN teachers
 ON course_teacher.teacher_id = teachers.id
 WHERE departments.id = 5;
+
+
+
+7. BONUS: Selezionare per ogni studente il numero di tentativi sostenuti
+per ogni esame, stampando anche il voto massimo. Successivamente,
+filtrare i tentativi con voto minimo 18.
+SELECT COUNT(exam_student.exam_id) AS n_tentativi, MAX(exam_student.vote) AS voto_massimo, students.name, students.surname
+FROM courses
+INNER JOIN exams
+ON exams.course_id = courses.id
+INNER JOIN exam_student
+ON exams.id = exam_student.exam_id
+INNER JOIN students
+ON exam_student.student_id = students.id
+
+WHERE exam_student.vote >18
+
+GROUP BY exam_student.student_id;
